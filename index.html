@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VM Digital Suraksha — DPDP Act Compliance for Healthcare Clinics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D1B2A;--navy-mid:#152232;--navy-light:#1E3147;
+  --gold:#C9A84C;--gold-light:#E2C47A;--gold-pale:#F5EDD6;
+  --cream:#FAF7F0;--white:#FFFFFF;
+  --text:#1A2A3A;--text-mid:#4A5568;--text-light:#718096;
+  --border:rgba(201,168,76,0.25);--border-faint:rgba(201,168,76,0.10);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:16px;line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--navy)}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;flex-direction:column;gap:1px}
+.nav-logo-top{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:#fff;letter-spacing:.02em;line-height:1}
+.nav-logo-top span{color:var(--gold)}
+.nav-logo-sub{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:400}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{color:var(--navy)!important;background:var(--gold);padding:8px 20px;border-radius:2px;font-weight:500!important;transition:background .2s!important}
+.nav-cta:hover{background:var(--gold-light)!important}
+
+/* HERO */
+#hero{min-height:100vh;background:var(--navy);position:relative;display:flex;align-items:center;overflow:hidden;padding:0 5%}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(201,168,76,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 15% 85%,rgba(30,49,71,.9) 0%,transparent 60%)}
+.hero-vline{position:absolute;top:0;bottom:0;right:40%;width:1px;background:linear-gradient(to bottom,transparent 0%,var(--border) 20%,var(--border) 80%,transparent 100%)}
+.hero-content{position:relative;z-index:2;max-width:660px;padding-top:72px}
+.eyebrow{display:inline-flex;align-items:center;gap:12px;margin-bottom:2rem;opacity:0;animation:fadeUp .8s .2s forwards}
+.eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.eyebrow span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:400}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4.5vw,4rem);font-weight:600;color:#fff;line-height:1.18;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .35s forwards}
+h1 em{font-style:italic;color:var(--gold);font-weight:400}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,1.6vw,1.3rem);color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:2.5rem;max-width:520px;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-actions{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .65s forwards}
+.btn-primary{display:inline-block;background:var(--gold);color:var(--navy);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:14px 32px;border-radius:2px;text-decoration:none;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.btn-ghost::after{content:'→';transition:transform .2s}
+.btn-ghost:hover{color:var(--gold)}
+.btn-ghost:hover::after{transform:translateX(4px)}
+.hero-badge{position:absolute;right:5%;top:50%;transform:translateY(-50%);z-index:2;opacity:0;animation:fadeIn 1s .9s forwards;text-align:center}
+.badge-ring{width:178px;height:178px;border-radius:50%;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 1rem;position:relative}
+.badge-ring::before{content:'';position:absolute;inset:8px;border-radius:50%;border:1px solid var(--border-faint)}
+.badge-ring::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px solid var(--border-faint)}
+.badge-tiny{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.badge-date{font-family:'Playfair Display',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1}
+.badge-year{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);margin-top:2px}
+.badge-sub{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+/* SHARED */
+section{padding:100px 5%}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:1rem}
+.sec-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+.sec-eyebrow span{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:500}
+h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:1rem}
+h2 em{font-style:italic;color:var(--gold);font-weight:400}
+.sec-lead{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--text-mid);max-width:580px;line-height:1.75}
+
+/* WHY */
+#why{background:var(--white);border-top:1px solid rgba(0,0,0,.06)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3.5rem;align-items:start}
+.penalty-cards{display:flex;flex-direction:column;gap:12px}
+.pc{border:1px solid rgba(0,0,0,.08);border-radius:4px;padding:1.25rem 1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:center;transition:border-color .2s,box-shadow .2s}
+.pc:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(201,168,76,.1)}
+.pc-amt{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--navy);white-space:nowrap;line-height:1}
+.pc-label{font-size:13px;color:var(--text-mid);line-height:1.5}
+.pc-label strong{display:block;color:var(--text);font-size:14px;margin-bottom:2px}
+.why-text h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:600;color:var(--text);margin-bottom:1rem;line-height:1.3}
+.why-text p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--text-mid);margin-bottom:1rem;line-height:1.8}
+.why-text ul{list-style:none;margin-top:1.5rem}
+.why-text ul li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-mid);padding:.5rem 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.why-text ul li::before{content:'—';color:var(--gold);flex-shrink:0;margin-top:1px}
+
+/* SERVICES */
+#services{background:var(--navy);position:relative;overflow:hidden}
+#services::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;border:1px solid var(--border-faint);pointer-events:none}
+#services::after{content:'';position:absolute;bottom:-150px;left:-150px;width:600px;height:600px;border-radius:50%;border:1px solid var(--border-faint);pointer-events:none}
+#services h2{color:#fff}
+#services .sec-lead{color:rgba(255,255,255,.45)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:3.5rem;background:var(--border-faint);border:1px solid var(--border-faint);position:relative;z-index:2}
+.svc-card{background:var(--navy-mid);padding:2rem 1.75rem;transition:background .25s}
+.svc-card:hover{background:var(--navy-light)}
+.svc-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:600;color:rgba(201,168,76,.15);line-height:1;margin-bottom:1.25rem;transition:color .25s}
+.svc-card:hover .svc-num{color:var(--gold)}
+.svc-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:.75rem;line-height:1.3}
+.svc-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:1.25rem}
+.svc-tag{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:4px 10px;border-radius:1px}
+
+/* PROCESS */
+#process{background:var(--cream)}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:3.5rem;position:relative}
+.proc-steps::before{content:'';position:absolute;top:27px;left:12%;right:12%;height:1px;background:linear-gradient(to right,transparent,var(--gold),var(--gold),transparent);opacity:.25}
+.proc-step{text-align:center;padding:0 1.5rem}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;color:var(--gold);position:relative;z-index:2}
+.step-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.5rem}
+.step-desc{font-size:13px;color:var(--text-light);line-height:1.6}
+
+/* ABOUT */
+#about{background:var(--white);border-top:1px solid rgba(0,0,0,.06)}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;margin-top:3.5rem;align-items:start}
+.about-id{position:sticky;top:100px}
+.monogram{width:96px;height:96px;background:var(--navy);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.monogram span{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:600;color:var(--gold);letter-spacing:-.02em}
+.about-name{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:600;color:var(--text);margin-bottom:4px}
+.about-role{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.about-creds{list-style:none}
+.about-creds li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-light);padding:.5rem 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.about-creds li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.about-text p{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--text-mid);line-height:1.8;margin-bottom:1.25rem}
+.about-text p strong{color:var(--text);font-weight:500}
+.disclaimer{margin-top:2rem;padding:1.25rem 1.5rem;background:var(--cream);border-left:3px solid var(--gold);font-size:13px;color:var(--text-light);line-height:1.6;font-style:italic}
+
+/* CONTACT */
+#contact{background:var(--navy);text-align:center;position:relative;overflow:hidden}
+#contact::before{content:'SURAKSHA';position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:10rem;font-weight:700;color:rgba(201,168,76,.04);white-space:nowrap;pointer-events:none;letter-spacing:.1em}
+#contact h2{color:#fff;margin:0 auto;max-width:600px}
+#contact .sec-lead{color:rgba(255,255,255,.4);margin:1rem auto 3rem}
+.contact-card{display:inline-grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-faint);border:1px solid var(--border-faint);margin-bottom:3rem;position:relative;z-index:2}
+.ci{background:var(--navy-mid);padding:2rem 2.5rem;text-align:center}
+.ci-label{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.ci-val{font-family:'Playfair Display',serif;font-size:1rem;color:#fff;font-weight:400}
+.cta-wrap{display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;position:relative;z-index:2}
+.btn-primary-lg{display:inline-block;background:var(--gold);color:var(--navy);font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:16px 40px;border-radius:2px;text-decoration:none;transition:background .2s,transform .15s}
+.btn-primary-lg:hover{background:var(--gold-light);transform:translateY(-1px)}
+.reg-note{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--border-faint);font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.05em;position:relative;z-index:2}
+.reg-note span{color:rgba(201,168,76,.35)}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid var(--border-faint);padding:1.5rem 5%;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.18);letter-spacing:.06em}
+footer a{color:rgba(201,168,76,.45);text-decoration:none}
+footer a:hover{color:var(--gold)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-vline,.hero-badge{display:none}
+  .why-grid,.about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .svc-grid{grid-template-columns:1fr}
+  .proc-steps{grid-template-columns:1fr 1fr;gap:2rem}
+  .proc-steps::before{display:none}
+  .contact-card{grid-template-columns:1fr;min-width:280px}
+  .nav-links{display:none}
+  .about-id{position:static}
+}
+@media(max-width:600px){
+  section{padding:70px 5%}
+  .proc-steps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-top">VM Digital <span>Suraksha</span></div>
+    <div class="nav-logo-sub">DPDP Act Compliance · Bengaluru</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#why">Why Comply</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-vline"></div>
+  <div class="hero-content">
+    <div class="eyebrow"><span>DPDP Act, 2023 · Healthcare Compliance · Bengaluru</span></div>
+    <h1>Protecting your patients.<br><em>Protecting your practice.</em></h1>
+    <p class="hero-sub">VM Digital Suraksha helps small and independent clinics in Bengaluru become fully compliant with India's Digital Personal Data Protection Act, 2023 — before enforcement begins in May 2027.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Schedule a free consultation</a>
+      <a href="#services" class="btn-ghost">Our services</a>
+    </div>
+  </div>
+  <div class="hero-badge">
+    <div class="badge-ring">
+      <div class="badge-tiny">Enforcement begins</div>
+      <div class="badge-date">May</div>
+      <div class="badge-year">2027</div>
+    </div>
+    <div class="badge-sub">Act now to be prepared</div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="sec-eyebrow"><span>The stakes</span></div>
+  <h2>Why compliance is not <em>optional</em></h2>
+  <p class="sec-lead">The DPDP Act creates legally enforceable obligations for every clinic that handles digital patient data — with significant financial penalties for non-compliance.</p>
+  <div class="why-grid reveal">
+    <div class="penalty-cards">
+      <div class="pc"><div class="pc-amt">₹250 Cr</div><div class="pc-label"><strong>Failure of data security</strong>Maximum penalty for failing to implement reasonable safeguards to protect patient data.</div></div>
+      <div class="pc"><div class="pc-amt">₹200 Cr</div><div class="pc-label"><strong>Breach notification failure</strong>Failing to notify patients and the Data Protection Board within 72 hours of a breach.</div></div>
+      <div class="pc"><div class="pc-amt">₹150 Cr</div><div class="pc-label"><strong>Violation of patient rights</strong>Failing to honour patients' rights of access, correction, erasure, or grievance redressal.</div></div>
+      <div class="pc"><div class="pc-amt">₹50 Cr</div><div class="pc-label"><strong>Consent &amp; notice failures</strong>Collecting patient data without proper informed consent or a compliant consent notice.</div></div>
+    </div>
+    <div class="why-text">
+      <h3>Every clinic that stores patient records digitally is a Data Fiduciary under the Act.</h3>
+      <p>That includes registration forms, prescriptions, lab reports, billing records — and even the phone numbers in your front desk's contact list. If any of this is in digital form, the DPDP Act applies to your clinic.</p>
+      <p>The good news: compliance is achievable. With the right documentation, staff training, and processes in place, a small clinic can be fully compliant well ahead of the deadline — without hiring a full-time legal or compliance team.</p>
+      <ul>
+        <li>Patient consent must be obtained before any data is collected</li>
+        <li>Patients have six legally enforceable rights over their own data</li>
+        <li>Data breaches must be reported within 72 hours</li>
+        <li>All staff who handle patient data must be trained on their obligations</li>
+        <li>Third-party vendors must have formal data processing agreements in place</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="sec-eyebrow"><span>What we do</span></div>
+  <h2>A complete <em>compliance engagement</em></h2>
+  <p class="sec-lead">Six deliverables. One engagement. Everything your clinic needs to meet its obligations under the DPDP Act, 2023.</p>
+  <div class="svc-grid reveal">
+    <div class="svc-card"><div class="svc-num">01</div><div class="svc-title">Patient Data Consent Notice</div><div class="svc-desc">A DPDP-compliant consent form issued to patients at registration. Plain language, legally sound, available in English and Kannada.</div><span class="svc-tag">Deliverable</span></div>
+    <div class="svc-card"><div class="svc-num">02</div><div class="svc-title">Staff Training Programme</div><div class="svc-desc">An interactive training module for all clinic staff — covering patient rights, consent, data security, and breach response. Includes a quiz and completion certificate with unique certificate ID.</div><span class="svc-tag">Deliverable</span></div>
+    <div class="svc-card"><div class="svc-num">03</div><div class="svc-title">Data Audit &amp; Inventory</div><div class="svc-desc">A full audit of all digital patient data the clinic holds — what it is, where it lives, who has access, and how long it must be retained under law.</div><span class="svc-tag">Deliverable</span></div>
+    <div class="svc-card"><div class="svc-num">04</div><div class="svc-title">Data Breach Response Plan</div><div class="svc-desc">A step-by-step breach response checklist covering containment, assessment, 72-hour notification, remediation, and post-incident review.</div><span class="svc-tag">Deliverable</span></div>
+    <div class="svc-card"><div class="svc-num">05</div><div class="svc-title">Third-Party Vendor Review</div><div class="svc-desc">Assessment of your EMR software, diagnostic lab partners, and billing tools — and whether appropriate data processing agreements are in place with each.</div><span class="svc-tag">Deliverable</span></div>
+    <div class="svc-card"><div class="svc-num">06</div><div class="svc-title">Gap Assessment &amp; Action Plan</div><div class="svc-desc">A prioritised assessment of your clinic's current compliance position, with a time-bound remediation plan and ongoing support to close every gap.</div><span class="svc-tag">Deliverable</span></div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="sec-eyebrow"><span>How it works</span></div>
+  <h2>Four sessions. <em>Full compliance.</em></h2>
+  <p class="sec-lead">Our engagement is structured to fit around a busy clinical practice — minimal disruption, maximum outcome.</p>
+  <div class="proc-steps reveal">
+    <div class="proc-step"><div class="step-num">I</div><div class="step-title">Discovery Call</div><div class="step-desc">A free 20-minute consultation to understand your clinic's current data practices and explain what the Act requires of you.</div></div>
+    <div class="proc-step"><div class="step-num">II</div><div class="step-title">Data Audit</div><div class="step-desc">A structured on-site or remote audit of all digital patient data — identifying gaps, risks, and immediate actions.</div></div>
+    <div class="proc-step"><div class="step-num">III</div><div class="step-title">Documentation &amp; Training</div><div class="step-desc">Delivery of all compliance documents and a staff training session — typically completed in one half-day clinic visit.</div></div>
+    <div class="proc-step"><div class="step-num">IV</div><div class="step-title">Sign-off &amp; Support</div><div class="step-desc">Final review, gap closure confirmation, and a 3-month support window as you embed the new processes.</div></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="sec-eyebrow"><span>Who we are</span></div>
+  <h2>Compliance expertise.<br><em>Built for small clinics.</em></h2>
+  <div class="about-grid">
+    <div class="about-id reveal">
+      <div class="monogram"><span>VMS</span></div>
+      <div class="about-name">Vikash Madhav Sridhar</div>
+      <div class="about-role">Founder, VM Digital Suraksha</div>
+      <ul class="about-creds">
+        <li>Registered under Udyam, Government of India</li>
+        <li>Specialist in DPDP Act healthcare compliance</li>
+        <li>Serving independent clinics across Bengaluru</li>
+        <li>Designed specifically for small practices</li>
+      </ul>
+    </div>
+    <div class="about-text reveal">
+      <p>VM Digital Suraksha was founded with a single purpose: to make India's Digital Personal Data Protection Act accessible and achievable for small, independent clinics that lack the resources of large hospital groups.</p>
+      <p>The DPDP Act is <strong>the most significant data protection legislation India has seen</strong> — and it applies equally to every practice, regardless of size. A clinic with three staff and fifty patients has the same legal obligations as a multi-speciality hospital. Yet the guidance, tools, and support available have almost entirely been designed for large enterprises.</p>
+      <p>We work exclusively with small clinics — which means our processes, documentation, and training are built around how a small practice actually operates. We speak plain language, not legalese. We work around your schedule. And we leave you with everything you need to stay compliant, not just to pass an audit.</p>
+      <p><strong>Our engagement typically takes two to three sessions and is priced to be accessible to an independent clinic.</strong> We offer a free initial consultation with no obligation.</p>
+      <div class="disclaimer">VM Digital Suraksha provides compliance support and documentation services. Our work does not constitute legal advice. Clinics facing enforcement proceedings or requiring legal representation should consult a qualified advocate.</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="sec-eyebrow" style="justify-content:center"><span>Get in touch</span></div>
+  <h2>Begin your compliance<br><em>engagement today.</em></h2>
+  <p class="sec-lead">The first conversation is free. We will tell you exactly where your clinic stands and what it will take to be compliant — no obligation.</p>
+  <div class="contact-card">
+    <div class="ci"><div class="ci-label">Phone</div><div class="ci-val">[+91 9113985740]</div></div>
+    <div class="ci"><div class="ci-label">Email</div><div class="ci-val">[sridharvikashmadhav@gmail.com]</div></div>
+    <div class="ci"><div class="ci-label">Location</div><div class="ci-val">Bengaluru, Karnataka</div></div>
+  </div>
+  <div class="cta-wrap">
+    <a href="mailto:[sridharvikashmadhav@gmail.com]" class="btn-primary-lg">Request a free consultation</a>
+  </div>
+  <div class="reg-note">VM Digital Suraksha &nbsp;·&nbsp; <span>Registered under Udyam, Government of India</span> &nbsp;·&nbsp; Bengaluru, Karnataka &nbsp;·&nbsp; DPDP Act, 2023 Compliance Services</div>
+</section>
+
+<footer>
+  <span>© 2027 VM Digital Suraksha. All rights reserved.</span>
+  <span>Compliance support · Not legal advice · <a href="#contact">Contact</a></span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if(window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  links.forEach(a => { a.style.color = a.getAttribute('href')==='#'+cur ? 'var(--gold)' : 'rgba(255,255,255,.6)'; });
+});
+</script>
+</body>
+</html>
